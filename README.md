@@ -4,7 +4,7 @@ CineTime allows you to fetch information about the movies or TV shows you've wat
 
 ## Features
 
--- Work in progress..
+ Work in progress..
 
 ## Technologies Used
 
