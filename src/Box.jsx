@@ -2,6 +2,7 @@ const KEY = "2dddb35f";
 import { useEffect, useState } from "react";
 import Error from "./Error";
 import Loader from "./Loader";
+import StarRating from "./StarRating";
 const Box = ({ type, movies, error, loader, onSelectId, selectedId }) => {
   if (type === "left")
     return (
@@ -75,7 +76,10 @@ const MovieDetails = ({ selectedId }) => {
     [selectedId]
   );
   return (
-    selectedId && (
+    selectedId &&
+    (loader === true ? (
+      <Loader />
+    ) : (
       <div>
         <div className="flex gap-2 mb-4">
           <img
@@ -84,7 +88,7 @@ const MovieDetails = ({ selectedId }) => {
             className="w-14 sm:w-20 h-28"
           />
           <div className="flex flex-col sm:gap-2 sm:text-xs grow-0 text-[8px]">
-            <p className="font-bold mb-1 sm:mb-2 text-sm sm:text-lg">
+            <p className="font-bold mb-1 text-sm sm:text-lg">
               {selectedMovie.Title}
             </p>
             <p>{selectedMovie.Genre}</p>
@@ -92,9 +96,12 @@ const MovieDetails = ({ selectedId }) => {
             <p>{selectedMovie.Language}</p>
           </div>
         </div>
-        <p>{selectedMovie.Plot}</p>
+        <div className="mb-4">
+          <StarRating />
+        </div>
+        <p className="text-sm">{selectedMovie.Plot}</p>
       </div>
-    )
+    ))
   );
 };
 

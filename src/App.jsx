@@ -5,6 +5,7 @@ import MainBox from "./MainBox";
 import SearchBox from "./SearchBox";
 import TotalResults from "./TotalResults";
 import Box from "./Box";
+import StarRating from "./StarRating";
 const KEY = "2dddb35f";
 const App = () => {
   const [error, setError] = useState(false);
