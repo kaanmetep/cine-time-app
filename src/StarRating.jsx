@@ -4,7 +4,7 @@ const StarRating = () => {
   const [rate, setRate] = useState(0);
   const [tempRate, setTempRate] = useState(0);
   return (
-    <div className="flex gap-1">
+    <div className="flex gap-1 bg-stone-300 p-2 rounded-lg">
       <p className="flex">
         {Array.from({ length: 5 }, (_, i) => (
           <Star

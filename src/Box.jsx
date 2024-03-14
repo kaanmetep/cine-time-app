@@ -18,7 +18,7 @@ const Box = ({ type, movies, error, loader, onSelectId, selectedId }) => {
     );
 
   return (
-    <div className="flex-1 p-4 overflow-auto">
+    <div className="flex-1 overflow-auto">
       <MovieDetails selectedId={selectedId} />
     </div>
   );
@@ -81,13 +81,13 @@ const MovieDetails = ({ selectedId }) => {
       <Loader />
     ) : (
       <div>
-        <div className="flex gap-2 mb-4">
+        <div className="flex gap-2 mb-3 bg-stone-300 pb-2 items-center">
           <img
             src={selectedMovie.Poster}
             alt="selectedMoviePoster"
-            className="w-14 sm:w-20 h-28"
+            className="w-14 sm:w-20 h-full "
           />
-          <div className="flex flex-col sm:gap-2 sm:text-xs grow-0 text-[8px]">
+          <div className="flex flex-col sm:gap-1 sm:text-xs grow-0 text-[8px]">
             <p className="font-bold mb-1 text-sm sm:text-lg">
               {selectedMovie.Title}
             </p>
@@ -96,10 +96,10 @@ const MovieDetails = ({ selectedId }) => {
             <p>{selectedMovie.Language}</p>
           </div>
         </div>
-        <div className="mb-4">
+        <div className=" p-2">
           <StarRating />
         </div>
-        <p className="text-sm">{selectedMovie.Plot}</p>
+        <p className="text-sm p-2">{selectedMovie.Plot}</p>
       </div>
     ))
   );
