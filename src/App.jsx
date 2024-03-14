@@ -5,8 +5,28 @@ import MainBox from "./MainBox";
 import SearchBox from "./SearchBox";
 import TotalResults from "./TotalResults";
 import Box from "./Box";
-import StarRating from "./StarRating";
+import WatchedMovies from "./WatchedMovies";
 const KEY = "2dddb35f";
+const watchedMovies = [
+  {
+    imdbID: "tt1375666",
+    Title: "Inception",
+    Year: "2010",
+    Poster:
+      "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
+    runtime: 148,
+    userRating: 5,
+  },
+  {
+    imdbID: "tt0088763",
+    Title: "Back to the Future",
+    Year: "1985",
+    Poster:
+      "https://m.media-amazon.com/images/M/MV5BZmU0M2Y1OGUtZjIxNi00ZjBkLTg1MjgtOWIyNThiZWIwYjRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
+    runtime: 116,
+    userRating: 4,
+  },
+];
 const App = () => {
   const [error, setError] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -14,6 +34,17 @@ const App = () => {
   const [totalResults, setTotalResults] = useState(0);
   const [input, setInput] = useState("");
   const [movies, setMovies] = useState(null);
+  const [watched, setWatched] = useState(watchedMovies);
+  const handleAddWatched = function (movie) {
+    setWatched((watched) => [...watched, movie]);
+    setSelectedId(null);
+  };
+  const handleInput = (e) => {
+    setInput(e.target.value);
+  };
+  const handleId = (id) => {
+    setSelectedId(id);
+  };
   useEffect(
     function () {
       const controller = new AbortController();
@@ -53,29 +84,30 @@ const App = () => {
     },
     [input]
   );
-  const handleInput = (e) => {
-    setInput(e.target.value);
-  };
-  const handleId = (id) => {
-    setSelectedId(id);
-  };
   return (
-    <div className="w-5/6 max-w-4xl bg-stone-200 mx-auto mt-10  rounded-lg pt-2">
-      <Header>
-        <SearchBox input={input} onSetInput={handleInput} />
-        <TotalResults totalResults={totalResults} />
-      </Header>
-      <MainBox>
-        <Box
-          type="left"
-          error={error}
-          loader={loader}
-          movies={movies}
-          onSelectId={handleId}
-        />
-        <Box type="right" selectedId={selectedId} />
-      </MainBox>
-    </div>
+    <>
+      <div className="w-5/6 max-w-4xl bg-stone-200 mx-auto mt-10  rounded-lg pt-2">
+        <Header>
+          <SearchBox input={input} onSetInput={handleInput} />
+          <TotalResults totalResults={totalResults} />
+        </Header>
+        <MainBox>
+          <Box
+            type="left"
+            error={error}
+            loader={loader}
+            movies={movies}
+            onSelectId={handleId}
+          />
+          <Box
+            type="right"
+            selectedId={selectedId}
+            onAddWatched={handleAddWatched}
+          />
+        </MainBox>
+      </div>
+      <WatchedMovies watched={watched} />
+    </>
   );
 };
 

@@ -3,7 +3,15 @@ import { useEffect, useState } from "react";
 import Error from "./Error";
 import Loader from "./Loader";
 import StarRating from "./StarRating";
-const Box = ({ type, movies, error, loader, onSelectId, selectedId }) => {
+const Box = ({
+  type,
+  movies,
+  error,
+  loader,
+  onSelectId,
+  selectedId,
+  onAddWatched,
+}) => {
   if (type === "left")
     return (
       <div className="flex-1 border-r-2 border-stone-500 p-4 overflow-auto">
@@ -19,7 +27,7 @@ const Box = ({ type, movies, error, loader, onSelectId, selectedId }) => {
 
   return (
     <div className="flex-1 overflow-auto">
-      <MovieDetails selectedId={selectedId} />
+      <MovieDetails selectedId={selectedId} onAddWatched={onAddWatched} />
     </div>
   );
 };
@@ -51,11 +59,13 @@ const MovieList = ({ movies, onSelectId }) => {
   );
 };
 
-const MovieDetails = ({ selectedId }) => {
+const MovieDetails = ({ selectedId, onAddWatched }) => {
   const [loader, setLoader] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState({});
+  const [userRating, setUserRating] = useState(0);
   useEffect(
     function () {
+      setUserRating(0);
       (async () => {
         try {
           setLoader(true);
@@ -81,7 +91,7 @@ const MovieDetails = ({ selectedId }) => {
       <Loader />
     ) : (
       <div>
-        <div className="flex gap-2 mb-3 bg-stone-300 pb-2 items-center">
+        <div className="flex gap-2 mb-6 bg-stone-300 pb-2 pl-2 items-center">
           <img
             src={selectedMovie.Poster}
             alt="selectedMoviePoster"
@@ -96,9 +106,28 @@ const MovieDetails = ({ selectedId }) => {
             <p>{selectedMovie.Language}</p>
           </div>
         </div>
-        <div className=" p-2">
-          <StarRating />
+        <div className="flex bg-stone-300 p-2 rounded-lg gap-2 m-1 mb-4 items-center justify-center">
+          <StarRating onSetRating={setUserRating} />
         </div>
+        {userRating !== 0 && (
+          <button
+            className="text-xs bg-stone-100 px-8 py-2 rounded-full mx-auto block mb-3 hover:bg-stone-400 transition-all delay-50"
+            onClick={() => {
+              const newMovie = {
+                imdbID: selectedMovie.imdbID,
+                Title: selectedMovie.Title,
+                Year: selectedMovie.Year,
+                Poster: selectedMovie.Poster,
+                runtime: selectedMovie.Runtime,
+                userRating: userRating,
+              };
+              onAddWatched(newMovie);
+            }}
+          >
+            + Add to list
+          </button>
+        )}
+
         <p className="text-sm p-2">{selectedMovie.Plot}</p>
       </div>
     ))

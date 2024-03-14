@@ -1,14 +1,17 @@
 import { useState } from "react";
 
-const StarRating = () => {
+const StarRating = ({ onSetRating }) => {
   const [rate, setRate] = useState(0);
   const [tempRate, setTempRate] = useState(0);
   return (
-    <div className="flex gap-1 bg-stone-300 p-2 rounded-lg">
+    <div className="flex gap-1">
       <p className="flex">
         {Array.from({ length: 5 }, (_, i) => (
           <Star
-            onClick={() => setRate(i + 1)}
+            onClick={() => {
+              setRate(i + 1);
+              onSetRating(i + 1);
+            }}
             fill={tempRate !== 0 ? tempRate > i : rate > i}
             onMouseEnter={() => setTempRate(i + 1)}
             onMouseLeave={() => setTempRate(0)}
