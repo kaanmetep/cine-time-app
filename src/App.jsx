@@ -108,6 +108,7 @@ const App = () => {
             type="right"
             selectedId={selectedId}
             onAddWatched={handleAddWatched}
+            onSelectId={setSelectedId}
           />
         </MainBox>
       </div>

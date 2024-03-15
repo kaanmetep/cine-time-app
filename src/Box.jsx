@@ -27,7 +27,13 @@ const Box = ({
 
   return (
     <div className="flex-1 overflow-auto">
-      <MovieDetails selectedId={selectedId} onAddWatched={onAddWatched} />
+      {selectedId && (
+        <MovieDetails
+          selectedId={selectedId}
+          onAddWatched={onAddWatched}
+          onSelectId={onSelectId}
+        />
+      )}
     </div>
   );
 };
@@ -59,7 +65,7 @@ const MovieList = ({ movies, onSelectId }) => {
   );
 };
 
-const MovieDetails = ({ selectedId, onAddWatched }) => {
+const MovieDetails = ({ selectedId, onAddWatched, onSelectId }) => {
   const [loader, setLoader] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState({});
   const [userRating, setUserRating] = useState(0);
@@ -85,52 +91,65 @@ const MovieDetails = ({ selectedId, onAddWatched }) => {
     },
     [selectedId]
   );
-  return (
-    selectedId &&
-    (loader === true ? (
-      <Loader />
-    ) : (
-      <div>
-        <div className="flex gap-2 mb-6 bg-stone-300 pb-2 pl-2 items-center">
-          <img
-            src={selectedMovie.Poster}
-            alt="selectedMoviePoster"
-            className="w-14 sm:w-20 h-full "
-          />
-          <div className="flex flex-col sm:gap-1 sm:text-xs grow-0 text-[8px]">
-            <p className="font-bold mb-1 text-sm sm:text-lg">
-              {selectedMovie.Title}
-            </p>
-            <p>{selectedMovie.Genre}</p>
-            <p>{selectedMovie.Released}</p>
-            <p>{selectedMovie.Language}</p>
-          </div>
-        </div>
-        <div className="flex bg-stone-300 p-2 rounded-lg gap-2 m-1 mb-4 items-center justify-center">
-          <StarRating onSetRating={setUserRating} />
-        </div>
-        {userRating !== 0 && (
+  useEffect(
+    function () {
+      document.title = `Movie | ${selectedMovie.Title || "CineTime"} `;
+      return function () {
+        document.title = "Movie | CineTime";
+        console.log("unmuounted");
+      };
+    },
+    [selectedMovie.Title]
+  );
+  return loader === true ? (
+    <Loader />
+  ) : (
+    <div>
+      <div className="flex gap-2 mb-6 bg-stone-300 pb-2 pl-2 items-center relative ">
+        <img
+          src={selectedMovie.Poster}
+          alt="selectedMoviePoster"
+          className="w-14 sm:w-20 h-full "
+        />
+        <div className="flex flex-col sm:gap-1 sm:text-xs grow-0 text-[8px] ">
+          <p className="font-bold mb-1 text-sm sm:text-lg">
+            {selectedMovie.Title}
+          </p>
+          <p>{selectedMovie.Genre}</p>
+          <p>{selectedMovie.Released}</p>
+          <p>{selectedMovie.Language}</p>
           <button
-            className="text-xs bg-stone-100 px-8 py-2 rounded-full mx-auto block mb-3 hover:bg-stone-400 transition-all delay-50"
-            onClick={() => {
-              const newMovie = {
-                imdbID: selectedMovie.imdbID,
-                Title: selectedMovie.Title,
-                Year: selectedMovie.Year,
-                Poster: selectedMovie.Poster,
-                runtime: Number(selectedMovie.Runtime.split(" ")[0]) || 0,
-                userRating: Number(userRating),
-              };
-              onAddWatched(newMovie);
-            }}
+            className="absolute top-0 left-0 w-4 h-4 p-3 bg-stone-400 flex items-center justify-center rounded-full text-base"
+            onClick={() => onSelectId(null)}
           >
-            + Add to list
+            &larr;
           </button>
-        )}
-
-        <p className="text-sm p-2">{selectedMovie.Plot}</p>
+        </div>
       </div>
-    ))
+      <div className="flex bg-stone-300 p-2 rounded-lg gap-2 m-1 mb-4 items-center justify-center">
+        <StarRating onSetRating={setUserRating} />
+      </div>
+      {userRating !== 0 && (
+        <button
+          className="text-xs bg-stone-100 px-8 py-2 rounded-full mx-auto block mb-3 hover:bg-stone-400 transition-all delay-50"
+          onClick={() => {
+            const newMovie = {
+              imdbID: selectedMovie.imdbID,
+              Title: selectedMovie.Title,
+              Year: selectedMovie.Year,
+              Poster: selectedMovie.Poster,
+              runtime: Number(selectedMovie.Runtime.split(" ")[0]) || 0,
+              userRating: Number(userRating),
+            };
+            onAddWatched(newMovie);
+          }}
+        >
+          + Add to list
+        </button>
+      )}
+
+      <p className="text-sm p-2">{selectedMovie.Plot}</p>
+    </div>
   );
 };
 
