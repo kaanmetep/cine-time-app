@@ -14,11 +14,12 @@ CineTime allows you to fetch information about the movies or TV shows from a thi
 ## Live Demo
 https://cine-time-app.vercel.app/
 
-## Development Focus: React Concepts
+## Development Focus: React Concepts and Styling with Tailwind
 
-### Focused React Skill Advancement in this Project's Development
+### Focused React and Tailwind Skill Advancement in this Project's Development
 
-Work in progress..
+React: How to create side effects in a correct way (useEffect Hook), a component's lifecycle(mount,re-render,unmount), how to prevent unnecessary resource consumption with using AbortController API, how to handle prop drilling with Component Composition ... (will be continued)
+Tailwind: How to do basic styling, how to design responsive web apps, how to create a layout.
 
 ## Used API
 
