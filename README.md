@@ -12,8 +12,7 @@ CineTime allows you to fetch information about the movies or TV shows from a thi
 - Tailwind
 
 ## Live Demo
-
-Work in progress..
+https://cine-time-app.vercel.app/
 
 ## Development Focus: React Concepts
 
