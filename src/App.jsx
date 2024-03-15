@@ -36,8 +36,13 @@ const App = () => {
   const [movies, setMovies] = useState(null);
   const [watched, setWatched] = useState(watchedMovies);
   const handleAddWatched = function (movie) {
-    setWatched((watched) => [...watched, movie]);
+    if (watched.some((m) => m.imdbID === movie.imdbID))
+      return window.alert("This movie is already in your list!");
+    setWatched((watched) => [movie, ...watched]);
     setSelectedId(null);
+  };
+  const handleDeleteWatched = function (movie) {
+    setWatched((watched) => watched.filter((m) => m.imdbID !== movie.imdbID));
   };
   const handleInput = (e) => {
     setInput(e.target.value);
@@ -106,7 +111,7 @@ const App = () => {
           />
         </MainBox>
       </div>
-      <WatchedMovies watched={watched} />
+      <WatchedMovies watched={watched} onDeleteWatched={handleDeleteWatched} />
     </>
   );
 };

@@ -118,8 +118,8 @@ const MovieDetails = ({ selectedId, onAddWatched }) => {
                 Title: selectedMovie.Title,
                 Year: selectedMovie.Year,
                 Poster: selectedMovie.Poster,
-                runtime: selectedMovie.Runtime,
-                userRating: userRating,
+                runtime: Number(selectedMovie.Runtime.split(" ")[0]) || 0,
+                userRating: Number(userRating),
               };
               onAddWatched(newMovie);
             }}
