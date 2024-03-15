@@ -91,7 +91,7 @@ const App = () => {
   );
   return (
     <>
-      <div className="w-5/6 max-w-4xl bg-stone-200 mx-auto mt-10  rounded-lg pt-2">
+      <div className="w-[90%] max-w-4xl bg-stone-200 mx-auto mt-10  rounded-lg pt-2">
         <Header>
           <SearchBox input={input} onSetInput={handleInput} />
           <TotalResults totalResults={totalResults} />

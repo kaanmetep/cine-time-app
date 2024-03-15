@@ -96,7 +96,6 @@ const MovieDetails = ({ selectedId, onAddWatched, onSelectId }) => {
       document.title = `Movie | ${selectedMovie.Title || "CineTime"} `;
       return function () {
         document.title = "Movie | CineTime";
-        console.log("unmuounted");
       };
     },
     [selectedMovie.Title]

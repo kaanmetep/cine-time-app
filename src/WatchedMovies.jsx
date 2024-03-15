@@ -2,7 +2,7 @@ import { useState } from "react";
 const WatchedMovies = ({ watched, onDeleteWatched }) => {
   const [hide, setHide] = useState(false);
   return (
-    <div className="bg-stone-200 w-5/6 mx-auto mt-5 rounded-lg p-4 max-w-4xl relative">
+    <div className="bg-stone-200 w-[90%] mx-auto mt-5 rounded-lg p-4 max-w-4xl relative">
       <div className="flex sm:gap-8 border-b-2 border-stone-400 mb-3 items-center">
         <h1 className="text-sm md:text-l md:tracking-wide font-bold pb-1">
           Watched Movies
@@ -36,7 +36,7 @@ const WatchedMovie = ({ filmObj, onDeleteWatched }) => {
       <p>{filmObj.userRating}★</p>
       <p>{filmObj.runtime} min</p>
       <button
-        className="bg-stone-400 p-3 w-2 h-2 flex items-center justify-center rounded-full justify-self-center text-xs"
+        className="bg-stone-400 p-3 w-2 h-2 flex items-center justify-center rounded-full justify-self-end text-xs"
         onClick={() => onDeleteWatched(filmObj)}
       >
         X
