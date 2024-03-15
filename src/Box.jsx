@@ -100,6 +100,22 @@ const MovieDetails = ({ selectedId, onAddWatched, onSelectId }) => {
     },
     [selectedMovie.Title]
   );
+  useEffect(
+    function () {
+      const callback = (e) => {
+        if (e.code === "Escape") {
+          onSelectId(null);
+        }
+      };
+
+      document.addEventListener("keydown", callback);
+
+      return function () {
+        document.removeEventListener("keydown", callback);
+      };
+    },
+    [onSelectId]
+  );
   return loader === true ? (
     <Loader />
   ) : (

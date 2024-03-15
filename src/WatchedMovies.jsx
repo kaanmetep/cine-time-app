@@ -32,9 +32,9 @@ const WatchedMovie = ({ filmObj, onDeleteWatched }) => {
     <li className="grid grid-cols-6 items-center bg-stone-300 p-2 rounded-lg">
       <img src={filmObj.Poster} alt="poster" className="w-10" />
       <p>{filmObj.Title}</p>
-      <p>({filmObj.Year})</p>
-      <p>{filmObj.userRating}★</p>
-      <p>{filmObj.runtime} min</p>
+      <p className="justify-self-end">({filmObj.Year})</p>
+      <p className="justify-self-end">{filmObj.userRating}★</p>
+      <p className="justify-self-end">{filmObj.runtime} min</p>
       <button
         className="bg-stone-400 p-3 w-2 h-2 flex items-center justify-center rounded-full justify-self-end text-xs"
         onClick={() => onDeleteWatched(filmObj)}

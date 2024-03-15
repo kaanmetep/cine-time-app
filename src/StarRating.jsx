@@ -15,6 +15,7 @@ const StarRating = ({ onSetRating }) => {
             fill={tempRate !== 0 ? tempRate > i : rate > i}
             onMouseEnter={() => setTempRate(i + 1)}
             onMouseLeave={() => setTempRate(0)}
+            key={i}
           />
         ))}
       </p>

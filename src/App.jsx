@@ -82,6 +82,7 @@ const App = () => {
         setTotalResults(0);
         return;
       }
+      setSelectedId(null);
       getData();
       return function () {
         controller.abort();
