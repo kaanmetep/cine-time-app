@@ -58,7 +58,7 @@ const App = () => {
           setError(false);
           setLoader(true);
           const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&s=${input}`,
+            `https://www.omdbapi.com/?apikey=${KEY}&s=${input}`,
             { signal: controller.signal }
           );
           if (!res.ok) throw new Error("An error occured.");
