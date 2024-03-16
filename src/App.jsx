@@ -35,8 +35,8 @@ const App = () => {
   const [input, setInput] = useState("");
   const [movies, setMovies] = useState(null);
   const [watched, setWatched] = useState(() => {
-    const storedValue = localStorage.getItem("watched") || watchedMovies;
-    return JSON.parse(storedValue);
+    const storedValue = localStorage.getItem("watched");
+    return storedValue ? JSON.parse(storedValue) : watchedMovies;
   });
   const handleAddWatched = function (movie) {
     if (watched.some((m) => m.imdbID === movie.imdbID))
