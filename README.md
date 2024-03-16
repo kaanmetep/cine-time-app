@@ -18,7 +18,7 @@ https://cine-time-app.vercel.app/
 
 ### Focused React and Tailwind Skill Advancement in this Project's Development
 
-React: How to create side effects in a correct way (useEffect Hook), a component's lifecycle(mount,re-render,unmount), how to prevent unnecessary resource consumption with using AbortController API, how to handle prop drilling with Component Composition ... (will be continued)
+React: How to create side effects in a correct way (useEffect Hook), a component's lifecycle(mount,re-render,unmount), how to prevent unnecessary resource consumption with using AbortController API, how to handle prop drilling with Component Composition, how to use state with a callback-lazy initial state- for usage of localStorage, how and why to use useRef hook ... (will be continued)
 Tailwind: How to do basic styling, how to design responsive web apps, how to create a layout.
 
 ## Used API
