@@ -34,7 +34,10 @@ const App = () => {
   const [totalResults, setTotalResults] = useState(0);
   const [input, setInput] = useState("");
   const [movies, setMovies] = useState(null);
-  const [watched, setWatched] = useState(watchedMovies);
+  const [watched, setWatched] = useState(() => {
+    const storedValue = localStorage.getItem("watched") || watchedMovies;
+    return JSON.parse(storedValue);
+  });
   const handleAddWatched = function (movie) {
     if (watched.some((m) => m.imdbID === movie.imdbID))
       return window.alert("This movie is already in your list!");
@@ -50,6 +53,12 @@ const App = () => {
   const handleId = (id) => {
     setSelectedId(id);
   };
+  useEffect(
+    function () {
+      localStorage.setItem("watched", JSON.stringify(watched));
+    },
+    [watched]
+  );
   useEffect(
     function () {
       const controller = new AbortController();
