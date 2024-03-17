@@ -6,7 +6,7 @@ import SearchBox from "./SearchBox";
 import TotalResults from "./TotalResults";
 import Box from "./Box";
 import WatchedMovies from "./WatchedMovies";
-const KEY = "2dddb35f";
+import { useMovies } from "./useMovies";
 const watchedMovies = [
   {
     imdbID: "tt1375666",
@@ -28,12 +28,9 @@ const watchedMovies = [
   },
 ];
 const App = () => {
-  const [error, setError] = useState(false);
-  const [loader, setLoader] = useState(false);
-  const [selectedId, setSelectedId] = useState(null);
-  const [totalResults, setTotalResults] = useState(0);
   const [input, setInput] = useState("");
-  const [movies, setMovies] = useState(null);
+  const { movies, loader, error, totalResults, selectedId, setSelectedId } =
+    useMovies(input);
   const [watched, setWatched] = useState(() => {
     const storedValue = localStorage.getItem("watched");
     return storedValue ? JSON.parse(storedValue) : watchedMovies;
@@ -59,46 +56,7 @@ const App = () => {
     },
     [watched]
   );
-  useEffect(
-    function () {
-      const controller = new AbortController();
-      const getData = async () => {
-        try {
-          setError(false);
-          setLoader(true);
-          const res = await fetch(
-            `https://www.omdbapi.com/?apikey=${KEY}&s=${input}`,
-            { signal: controller.signal }
-          );
-          if (!res.ok) throw new Error("An error occured.");
-          const data = await res.json();
-          if (data.Response === "False") throw new Error("film not found");
-          setMovies(data.Search);
-          setTotalResults(data.Search.length);
-        } catch (err) {
-          if (err.name !== "AbortError") {
-            setError(true);
-            setTotalResults(0);
-          }
-        } finally {
-          setLoader(false);
-        }
-      };
-      if (input.length < 1 || !input) {
-        setMovies(null);
-        setError(false);
-        setLoader(false);
-        setTotalResults(0);
-        return;
-      }
-      setSelectedId(null);
-      getData();
-      return function () {
-        controller.abort();
-      };
-    },
-    [input]
-  );
+
   return (
     <>
       <div className="w-[90%] max-w-4xl bg-stone-200 mx-auto mt-10  rounded-lg pt-2">
