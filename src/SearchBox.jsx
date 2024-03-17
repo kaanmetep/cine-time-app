@@ -4,8 +4,8 @@ const SearchBox = ({ onSetInput, input }) => {
   const inputEl = useRef(null);
 
   useEffect(function () {
+    inputEl.current.focus();
     const callback = (e) => {
-      inputEl.current.focus();
       if (e.code === "Enter") {
         inputEl.current.focus();
       }
