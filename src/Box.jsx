@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Error from "./Error";
 import Loader from "./Loader";
 import StarRating from "./StarRating";
+import { useKey } from "./useKey";
 const Box = ({
   type,
   movies,
@@ -69,6 +70,9 @@ const MovieDetails = ({ selectedId, onAddWatched, onSelectId }) => {
   const [loader, setLoader] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState({});
   const [userRating, setUserRating] = useState(0);
+  const handleCloseMovie = () => {
+    onSelectId(null);
+  };
   useEffect(
     function () {
       setUserRating(0);
@@ -100,22 +104,7 @@ const MovieDetails = ({ selectedId, onAddWatched, onSelectId }) => {
     },
     [selectedMovie.Title]
   );
-  useEffect(
-    function () {
-      const callback = (e) => {
-        if (e.code === "Escape") {
-          onSelectId(null);
-        }
-      };
-
-      document.addEventListener("keydown", callback);
-
-      return function () {
-        document.removeEventListener("keydown", callback);
-      };
-    },
-    [onSelectId]
-  );
+  useKey("Escape", handleCloseMovie);
   return loader === true ? (
     <Loader />
   ) : (

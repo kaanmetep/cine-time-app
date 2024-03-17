@@ -7,6 +7,7 @@ import TotalResults from "./TotalResults";
 import Box from "./Box";
 import WatchedMovies from "./WatchedMovies";
 import { useMovies } from "./useMovies";
+import { useLocalStorageState } from "./useLocalStorageState";
 const watchedMovies = [
   {
     imdbID: "tt1375666",
@@ -31,10 +32,8 @@ const App = () => {
   const [input, setInput] = useState("");
   const { movies, loader, error, totalResults, selectedId, setSelectedId } =
     useMovies(input);
-  const [watched, setWatched] = useState(() => {
-    const storedValue = localStorage.getItem("watched");
-    return storedValue ? JSON.parse(storedValue) : watchedMovies;
-  });
+  const [watched, setWatched] = useLocalStorageState(watchedMovies, "watched");
+
   const handleAddWatched = function (movie) {
     if (watched.some((m) => m.imdbID === movie.imdbID))
       return window.alert("This movie is already in your list!");
@@ -50,12 +49,6 @@ const App = () => {
   const handleId = (id) => {
     setSelectedId(id);
   };
-  useEffect(
-    function () {
-      localStorage.setItem("watched", JSON.stringify(watched));
-    },
-    [watched]
-  );
 
   return (
     <>
