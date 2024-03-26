@@ -4,7 +4,11 @@ CineTime allows you to fetch information about the movies or TV shows from a thi
 
 ## Features
 
-Work in progress..
+- Users can add the movies they have rated to their "watched" list.
+- Users cannot add the same movie to the watched list more than once.
+- Users can delete movies from the watched list.
+- Movies added to the "watched" list are stored in the localStorage.
+- Users can see the total number of movies added to their watched list and the total duration of these movies in minutes.
 
 ## Technologies Used
 
